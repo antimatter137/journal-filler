@@ -29,5 +29,6 @@ just paste the client script into dev tools on google classroom
 **profit:**
 
 you can go into the sheet and see everything (also figure out formatting yourself, im too lazy for that shit)
-##OR...
+
+## OR...
 just run the client, it will work if my server is up
