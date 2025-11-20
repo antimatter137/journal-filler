@@ -1,7 +1,7 @@
 (async () => {
     const SERVER_URL = "https://parser.antimatter137.dev/parse-stats";
 
-    console.log("Collecting posts...");
+    console.log("collecting all the posts...");
 
     const postEls = Array.from(document.querySelectorAll('div'));
     const rawPosts = [];
