@@ -20,8 +20,8 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.warn(`Blocked by CORS: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
+      console.warn(`blocked by cors: ${origin}`);
+      callback(new Error('not allowed'));
     }
   },
   credentials: true,
@@ -39,7 +39,7 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 
 async function appendToSheet(rows) {
-  if (!SPREADSHEET_ID) return console.warn('No SPREADSHEET_ID set.');
+  if (!SPREADSHEET_ID) return console.warn('no spreadsheet id set.');
 
   const auth = new google.auth.GoogleAuth({
     keyFile: KEYFILEPATH,
@@ -55,7 +55,7 @@ async function appendToSheet(rows) {
   const existingDates = new Set((existing.data.values || []).flat().map(d => d.toString().trim()));
 
   const newRows = rows.filter(r => r.date_label && !existingDates.has(r.date_label));
-  if (!newRows.length) return console.log('No new rows to append.');
+  if (!newRows.length) return console.log('no new rows');
 
   const resource = {
     values: newRows.map(r => [
@@ -74,7 +74,7 @@ async function appendToSheet(rows) {
     resource,
   });
 
-  console.log(`Appended ${response.data.updates.updatedRows} rows to Google Sheet.`);
+  console.log(`added ${response.data.updates.updatedRows} rows to Google Sheet.`);
 }
 
 function splitMultiDatePosts(posts) {
@@ -172,7 +172,7 @@ function appendToFile(entries) {
 }
 
 app.get('/', (req, res) => {
-  res.type('text').send('running: { "posts": [...] }');
+  res.type('text').send('running');
 });
 
 app.options('/parse-stats', cors(corsOptions));
@@ -190,7 +190,7 @@ app.post('/parse-stats', cors(corsOptions), async (req, res) => {
     res.json({ results });
   } catch (err) {
     console.error('error:', err);
-    res.status(500).json({ error: 'Parsing failed', details: err.message });
+    res.status(500).json({ error: 'it all failed :(', details: err.message });
   }
 });
 
