@@ -172,7 +172,7 @@ function appendToFile(entries) {
 }
 
 app.get('/', (req, res) => {
-  res.type('text').send('Parser running. POST /parse-stats with { "posts": [...] }');
+  res.type('text').send('running: { "posts": [...] }');
 });
 
 app.options('/parse-stats', cors(corsOptions));
@@ -189,13 +189,13 @@ app.post('/parse-stats', cors(corsOptions), async (req, res) => {
 
     res.json({ results });
   } catch (err) {
-    console.error('Error in /parse-stats:', err);
+    console.error('error:', err);
     res.status(500).json({ error: 'Parsing failed', details: err.message });
   }
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`✅ Parser server running on port ${port}`);
-  console.log(`Data saved to: ${DATA_FILE}`);
+  console.log(`running on port ${port}`);
+  console.log(`saved to: ${DATA_FILE}`);
 });
