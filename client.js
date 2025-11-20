@@ -15,13 +15,13 @@
         }
     }
 
-    console.log("Raw posts found (with duplicates):", rawPosts.length);
+    console.log("dups: (with duplicates):", rawPosts.length);
 
     const uniqueByText = Array.from(new Set(rawPosts));
-    console.log("Unique posts by text:", uniqueByText.length);
+    console.log("without dupes:", uniqueByText.length);
 
     if (!uniqueByText.length) {
-        console.warn("No candidate posts found. Scroll/expand more posts and run again.");
+        console.warn("no posts");
         return;
     }
 
@@ -33,22 +33,22 @@
             body: JSON.stringify({ posts: uniqueByText })
         });
 
-        console.log("Fetch completed. Status:", res.status);
+        console.log("status:", res.status);
 
         if (!res.ok) {
             const text = await res.text().catch(() => "<unable to read body>");
-            console.error("Server returned error:", res.status, text);
+            console.error("error:", res.status, text);
             return;
         }
 
         data = await res.json();
     } catch (err) {
-        console.error("Fetch or processing error:", err);
+        console.error("more error:", err);
         return;
     }
 
     const parsed = data.results || [];
-    console.log("Parsed rows (raw from server):", parsed.length);
+    console.log("rows parsed.length);
 
     const seenStat = new Set();
     const dedupedByStat = [];
@@ -66,7 +66,7 @@
         dedupedByStat.push(r);
     }
 
-    console.log("After value-based dedupe:", dedupedByStat.length);
+    console.log("after dupes removed:", dedupedByStat.length);
 
     const perDate = {};
     for (const r of dedupedByStat) {
@@ -77,7 +77,7 @@
     }
 
     const finalRows = Object.values(perDate);
-    console.log("Final rows (one per date_label):", finalRows.length);
+    console.log("final rows:", finalRows.length);
 
     console.table(
         finalRows.map((r, i) => ({
