@@ -31,4 +31,4 @@ just paste the client script into dev tools on google classroom
 you can go into the sheet and see everything (also figure out formatting yourself, im too lazy for that shit)
 
 ## OR...
-just run the client, it will work if my server is up
+just run the client, it will work if my server is up (i will share with you the sheet output because only people i know will use this)
