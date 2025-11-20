@@ -22,6 +22,9 @@ npm install express cors openai googleapis dotenv
 ```
 node server.js
 ```
+
+##OR...
+just run the client, it will work if my server is up
 # run the client:
 just paste the client script into dev tools on google classroom
 
